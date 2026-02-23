@@ -201,6 +201,7 @@ See [references/tldraw-compat.md](references/tldraw-compat.md) for the full sche
 | Blank canvas in all projects | **Open the project folder first** (`File → Open Folder`), then open the `.tldr` file. The tldraw extension requires the file to be inside the active workspace. |
 | Blank canvas | Run `--smoke` first. If smoke works, regenerate from JSON |
 | Smoke also blank | Run `doctor` to reset workspace cache, then reload VS Code |
+| Invalid JSON parse / strange symbols | Save `diagram.json` as UTF-8 (without BOM) and use standard double quotes |
 | Shapes missing | Check that `diagram.json` has valid `nodes` and `edges` |
 | Arrows not connecting | Verify `from`/`to` values match node `id` values |
 | `.tldr` opens as raw JSON | Install the [tldraw VS Code extension](https://marketplace.visualstudio.com/items?itemName=tldraw-org.tldraw-vscode) |

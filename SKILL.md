@@ -68,6 +68,7 @@ The generated `.tldr` file uses:
 3. If both are blank, use VS Code `Developer: Reload Window` and re-open.
 4. Never use legacy `props.text` — always use `props.richText`.
 5. Never reduce `schema.sequences` to empty — all keys are required.
+6. Keep `.diagrams/diagram.json` in UTF-8 (without BOM) and standard double quotes.
 
 ## Shape Property Reference
 
