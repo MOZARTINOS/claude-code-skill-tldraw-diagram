@@ -23,12 +23,15 @@ Before running commands, locate `gen-tldr.mjs` in the project with a file search
 
 ## Commands
 
-Replace `<path-to-gen>` with the actual path to `gen-tldr.mjs` in the project:
+Use the actual path where `gen-tldr.mjs` was found. Examples for each layout:
 
 ```bash
-node <path-to-gen>/gen-tldr.mjs --help
-node <path-to-gen>/gen-tldr.mjs --in .diagrams/diagram.json --out .diagrams/diagram.tldr
-node <path-to-gen>/gen-tldr.mjs --smoke --out .diagrams/smoke-test.tldr
+# If scripts/ is at project root:
+node scripts/gen-tldr.mjs --in .diagrams/diagram.json --out .diagrams/diagram.tldr
+node scripts/gen-tldr.mjs --smoke --out .diagrams/smoke-test.tldr
+
+# If installed as a subdirectory:
+node skills/tldraw-json-to-tldr/scripts/gen-tldr.mjs --in .diagrams/diagram.json --out .diagrams/diagram.tldr
 ```
 
 ## Input Format

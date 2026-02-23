@@ -6,7 +6,7 @@
   "scripts": {
     "generate": "node scripts/gen-tldr.mjs --in examples/diagram.json --out examples/diagram.tldr",
     "smoke": "node scripts/gen-tldr.mjs --smoke --out examples/smoke-test.tldr",
-    "validate": "node --input-type=commonjs -e \"JSON.parse(require('fs').readFileSync('examples/diagram.tldr','utf8')); console.log('Valid JSON')\"",
+    "validate": "node --input-type=commonjs -e \"JSON.parse(require('fs').readFileSync('examples/diagram.tldr','utf8')); JSON.parse(require('fs').readFileSync('examples/smoke-test.tldr','utf8')); console.log('Valid JSON')\"",
     "test": "npm run generate && npm run smoke && npm run validate"
   },
   "keywords": [

@@ -359,7 +359,11 @@ function buildTldr(diagram) {
 
     const fromNode = nodePos.get(from);
     const toNode = nodePos.get(to);
-    if (!fromNode || !toNode) continue;
+    if (!fromNode || !toNode) {
+      const missing = [!fromNode && from, !toNode && to].filter(Boolean);
+      console.warn(`Warning: edge "${from}" -> "${to}" skipped — unknown node(s): ${missing.join(", ")}`);
+      continue;
+    }
 
     const start = center(fromNode);
     const end = center(toNode);
