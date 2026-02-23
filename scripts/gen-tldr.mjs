@@ -106,8 +106,15 @@ function parseArgs(argv) {
 }
 
 function buildIndexFactory() {
-  let index = 0;
-  return () => `a${(++index).toString(36)}`;
+  const SAFE = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  const BASE = SAFE.length; // 61
+  let counter = -1;
+  return () => {
+    counter += 1;
+    const hi = Math.floor(counter / BASE);
+    const lo = counter % BASE;
+    return `a${SAFE[hi]}${SAFE[lo]}`;
+  };
 }
 
 function center(point) {
@@ -116,7 +123,20 @@ function center(point) {
 
 function readDiagramJson(filePath) {
   const raw = fs.readFileSync(filePath, "utf8");
-  const parsed = JSON.parse(raw);
+  const normalizedRaw = raw.replace(/^\uFEFF/, "");
+  if (normalizedRaw !== raw) {
+    console.warn("Warning: stripped UTF-8 BOM from input JSON");
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(normalizedRaw);
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new Error(
+      `Invalid JSON in ${filePath}: ${reason}. Use UTF-8 (without BOM) and standard double quotes.`
+    );
+  }
 
   if (!Array.isArray(parsed.nodes)) {
     console.warn("Warning: 'nodes' is not an array — treating as empty");
