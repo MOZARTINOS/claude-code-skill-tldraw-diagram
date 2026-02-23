@@ -4,6 +4,8 @@
   "description": "Claude Code skill for generating VS Code-compatible tldraw (.tldr) architecture diagrams from JSON. Visualize your codebase workflow directly inside VS Code.",
   "type": "module",
   "scripts": {
+    "bootstrap": "node scripts/bootstrap-project.mjs --target .",
+    "doctor": "node scripts/doctor-vscode-tldraw.mjs --target . --reset-workspace-cache",
     "generate": "node scripts/gen-tldr.mjs --in examples/diagram.json --out examples/diagram.tldr",
     "smoke": "node scripts/gen-tldr.mjs --smoke --out examples/smoke-test.tldr",
     "validate": "node --input-type=commonjs -e \"JSON.parse(require('fs').readFileSync('examples/diagram.tldr','utf8')); JSON.parse(require('fs').readFileSync('examples/smoke-test.tldr','utf8')); console.log('Valid JSON')\"",

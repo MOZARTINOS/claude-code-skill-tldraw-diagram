@@ -36,12 +36,16 @@ The generator script uses only built-in Node.js modules (`fs`, `path`) — zero 
 
 ### Step 1: Install the Skill for Claude Code
 
-Claude Code discovers skills from `~/.claude/skills/`. Copy only the `SKILL.md`:
+Claude Code discovers skills from `~/.claude/skills/`.
+Copy `SKILL.md` and the bootstrap dependencies:
 
 ```bash
 git clone https://github.com/MOZARTINOS/claude-code-skill-tldraw-diagram.git
 mkdir -p ~/.claude/skills/tldraw-json-to-tldr
 cp claude-code-skill-tldraw-diagram/SKILL.md ~/.claude/skills/tldraw-json-to-tldr/
+cp -r claude-code-skill-tldraw-diagram/scripts ~/.claude/skills/tldraw-json-to-tldr/
+cp -r claude-code-skill-tldraw-diagram/assets ~/.claude/skills/tldraw-json-to-tldr/
+cp -r claude-code-skill-tldraw-diagram/examples ~/.claude/skills/tldraw-json-to-tldr/
 ```
 
 ### Step 2: Add the Generator to Your Project
@@ -64,6 +68,48 @@ cp -r claude-code-skill-tldraw-diagram your-project/skills/tldraw-json-to-tldr
 git clone https://github.com/MOZARTINOS/claude-code-skill-tldraw-diagram.git
 cd claude-code-skill-tldraw-diagram
 node scripts/gen-tldr.mjs --in examples/diagram.json --out examples/diagram.tldr
+```
+
+### One-command project bootstrap
+
+Use this when opening a new or old project where diagram generation is not configured yet:
+
+```bash
+# From this skill repository:
+node scripts/bootstrap-project.mjs --target /path/to/your-project
+
+# If the skill is already inside your project:
+node skills/tldraw-json-to-tldr/scripts/bootstrap-project.mjs --target .
+
+# If the skill is installed globally:
+# Bash/Zsh:
+node "$HOME/.claude/skills/tldraw-json-to-tldr/scripts/bootstrap-project.mjs" --target /path/to/your-project
+# PowerShell:
+node "$env:USERPROFILE/.claude/skills/tldraw-json-to-tldr/scripts/bootstrap-project.mjs" --target .
+```
+
+Bootstrap will:
+- install/update `scripts/gen-tldr.mjs`
+- create `.diagrams/` files if missing
+- add VS Code tasks and extension recommendation
+- generate and validate `.diagrams/smoke-test.tldr` and `.diagrams/diagram.tldr`
+
+### One-command doctor (bootstrap + VS Code cache reset)
+
+Use this when you still get a blank tldraw canvas in a specific project:
+
+```bash
+# PowerShell
+node "$env:USERPROFILE/.claude/skills/tldraw-json-to-tldr/scripts/doctor-vscode-tldraw.mjs" --target . --reset-workspace-cache
+
+# Bash/Zsh
+node "$HOME/.claude/skills/tldraw-json-to-tldr/scripts/doctor-vscode-tldraw.mjs" --target . --reset-workspace-cache
+```
+
+If needed, run hard reset:
+
+```bash
+node "$env:USERPROFILE/.claude/skills/tldraw-json-to-tldr/scripts/doctor-vscode-tldraw.mjs" --target . --hard-reset-workspace
 ```
 
 ## Input Format
@@ -152,8 +198,9 @@ See [references/tldraw-compat.md](references/tldraw-compat.md) for the full sche
 
 | Symptom | Fix |
 |---------|-----|
+| Blank canvas in all projects | **Open the project folder first** (`File → Open Folder`), then open the `.tldr` file. The tldraw extension requires the file to be inside the active workspace. |
 | Blank canvas | Run `--smoke` first. If smoke works, regenerate from JSON |
-| Smoke also blank | Reload VS Code window (`Developer: Reload Window`) |
+| Smoke also blank | Run `doctor` to reset workspace cache, then reload VS Code |
 | Shapes missing | Check that `diagram.json` has valid `nodes` and `edges` |
 | Arrows not connecting | Verify `from`/`to` values match node `id` values |
 | `.tldr` opens as raw JSON | Install the [tldraw VS Code extension](https://marketplace.visualstudio.com/items?itemName=tldraw-org.tldraw-vscode) |

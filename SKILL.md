@@ -15,17 +15,32 @@ Before running commands, locate `gen-tldr.mjs` in the project with a file search
 
 ## Quick Workflow
 1. Locate `gen-tldr.mjs` in the project directory.
-2. Locate input JSON (default: `.diagrams/diagram.json`).
-3. Run the generator script.
-4. Validate that output is valid JSON.
-5. Run smoke generation if blank canvas is still reported.
-6. Re-open file in VS Code and verify shapes are visible.
+2. If not found, run bootstrap:
+   - `node skills/tldraw-json-to-tldr/scripts/bootstrap-project.mjs --target .`
+   - `node "$HOME/.claude/skills/tldraw-json-to-tldr/scripts/bootstrap-project.mjs" --target .` (Bash/Zsh)
+   - `node "$env:USERPROFILE/.claude/skills/tldraw-json-to-tldr/scripts/bootstrap-project.mjs" --target .` (PowerShell)
+3. Locate input JSON (default: `.diagrams/diagram.json`).
+4. Run the generator script.
+5. Validate that output is valid JSON.
+6. If blank canvas is reported, run doctor (bootstrap + workspace cache reset):
+   - `node "$env:USERPROFILE/.claude/skills/tldraw-json-to-tldr/scripts/doctor-vscode-tldraw.mjs" --target . --reset-workspace-cache` (PowerShell)
+   - `node "$HOME/.claude/skills/tldraw-json-to-tldr/scripts/doctor-vscode-tldraw.mjs" --target . --reset-workspace-cache` (Bash/Zsh)
+7. Re-open file in VS Code and verify shapes are visible.
 
 ## Commands
 
 Use the actual path where `gen-tldr.mjs` was found. Examples for each layout:
 
 ```bash
+# Bootstrap current project if script/config is missing:
+node skills/tldraw-json-to-tldr/scripts/bootstrap-project.mjs --target .
+node "$HOME/.claude/skills/tldraw-json-to-tldr/scripts/bootstrap-project.mjs" --target . # Bash/Zsh
+node "$env:USERPROFILE/.claude/skills/tldraw-json-to-tldr/scripts/bootstrap-project.mjs" --target . # PowerShell
+
+# If canvas is still blank in this workspace:
+node "$env:USERPROFILE/.claude/skills/tldraw-json-to-tldr/scripts/doctor-vscode-tldraw.mjs" --target . --reset-workspace-cache # PowerShell
+node "$HOME/.claude/skills/tldraw-json-to-tldr/scripts/doctor-vscode-tldraw.mjs" --target . --reset-workspace-cache # Bash/Zsh
+
 # If scripts/ is at project root:
 node scripts/gen-tldr.mjs --in .diagrams/diagram.json --out .diagrams/diagram.tldr
 node scripts/gen-tldr.mjs --smoke --out .diagrams/smoke-test.tldr
