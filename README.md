@@ -8,6 +8,12 @@ When you work on a project inside Claude Code for a long time, it's easy to lose
 
 Just describe your architecture as simple JSON (`nodes` + `edges`), and the skill generates a `.tldr` file that opens natively in VS Code via the tldraw extension. No external tools, no browser tabs, no paid services.
 
+## Preview
+
+Example diagram rendered in VS Code tldraw:
+
+![Example Architecture Diagram](assets/example-architecture.png)
+
 ## Prerequisites
 
 ### 1. tldraw VS Code Extension (required)
