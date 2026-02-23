@@ -1,0 +1,18 @@
+{
+  "title": "Example Architecture",
+  "nodes": [
+    { "id": "client", "label": "Browser Client", "group": "Frontend" },
+    { "id": "nextjs", "label": "Next.js App", "group": "Frontend" },
+    { "id": "api", "label": "API Gateway", "group": "Backend" },
+    { "id": "auth", "label": "Auth Service", "group": "Backend" },
+    { "id": "db", "label": "PostgreSQL", "group": "Data" },
+    { "id": "redis", "label": "Redis Cache", "group": "Data" }
+  ],
+  "edges": [
+    { "from": "client", "to": "nextjs", "label": "HTTPS" },
+    { "from": "nextjs", "to": "api", "label": "REST/JSON" },
+    { "from": "api", "to": "auth", "label": "JWT verify" },
+    { "from": "api", "to": "db", "label": "SQL queries" },
+    { "from": "api", "to": "redis", "label": "cache read/write" }
+  ]
+}

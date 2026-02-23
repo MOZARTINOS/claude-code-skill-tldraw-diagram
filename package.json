@@ -1,0 +1,40 @@
+{
+  "name": "claude-code-skill-tldraw-diagram",
+  "version": "1.0.0",
+  "description": "Claude Code skill for generating VS Code-compatible tldraw (.tldr) architecture diagrams from JSON. Visualize your codebase workflow directly inside VS Code.",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/gen-tldr.mjs --in examples/diagram.json --out examples/diagram.tldr",
+    "smoke": "node scripts/gen-tldr.mjs --smoke --out examples/smoke-test.tldr",
+    "validate": "node --input-type=commonjs -e \"JSON.parse(require('fs').readFileSync('examples/diagram.tldr','utf8')); console.log('Valid JSON')\"",
+    "test": "npm run generate && npm run smoke && npm run validate"
+  },
+  "keywords": [
+    "claude-code",
+    "claude-code-skill",
+    "tldraw",
+    "tldr",
+    "vscode",
+    "diagram",
+    "architecture-diagram",
+    "json-to-diagram",
+    "code-visualization",
+    "project-workflow"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MOZARTINOS/claude-code-skill-tldraw-diagram.git"
+  },
+  "homepage": "https://github.com/MOZARTINOS/claude-code-skill-tldraw-diagram#readme",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "SKILL.md",
+    "scripts/",
+    "references/",
+    "assets/",
+    "examples/"
+  ]
+}
