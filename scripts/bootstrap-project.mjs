@@ -80,11 +80,12 @@ function ensureDir(dirPath) {
 
 function copyFile(srcPath, dstPath, force) {
   ensureDir(path.dirname(dstPath));
-  if (fs.existsSync(dstPath) && !force) {
+  const existed = fs.existsSync(dstPath);
+  if (existed && !force) {
     return "kept";
   }
   fs.copyFileSync(srcPath, dstPath);
-  return fs.existsSync(dstPath) && force ? "updated" : "created";
+  return existed ? "updated" : "created";
 }
 
 function writeFileIfMissing(filePath, content) {

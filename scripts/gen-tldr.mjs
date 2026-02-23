@@ -203,7 +203,7 @@ function buildSmokeTestTldr() {
         isLocked: false,
         opacity: 1,
         parentId: "page:page",
-        index: "a1",
+        index: "a2",
         meta: {},
         props: {
           geo: "rectangle",
