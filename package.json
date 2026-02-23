@@ -1,6 +1,6 @@
 {
   "name": "claude-code-skill-tldraw-diagram",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Claude Code skill for generating VS Code-compatible tldraw (.tldr) architecture diagrams from JSON. Visualize your codebase workflow directly inside VS Code.",
   "type": "module",
   "scripts": {
