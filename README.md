@@ -14,10 +14,11 @@ Just describe your architecture as simple JSON (`nodes` + `edges`), and the skil
 
 Install the **tldraw** extension to view `.tldr` files directly in VS Code:
 
-1. Open VS Code
-2. Go to Extensions (`Ctrl+Shift+X`)
-3. Search for **tldraw**
-4. Install [tldraw by tldraw](https://marketplace.visualstudio.com/items?itemName=tldraw-org.tldraw-vscode)
+```bash
+code --install-extension tldraw-org.tldraw-vscode
+```
+
+Or manually: Extensions (`Ctrl+Shift+X`) → search "tldraw" → Install [tldraw by tldraw](https://marketplace.visualstudio.com/items?itemName=tldraw-org.tldraw-vscode)
 
 Without this extension, `.tldr` files will open as raw JSON.
 
